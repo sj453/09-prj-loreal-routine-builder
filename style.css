@@ -13,6 +13,12 @@ body {
   justify-content: center;
 }
 
+/* L'Oréal brand colors */
+:root {
+  --loreal-red: #ff003b;
+  --loreal-gold: #e3a535;
+}
+
 .page-wrapper {
   width: 90%;
   max-width: 900px;
@@ -186,6 +192,37 @@ body {
   display: flex;
   gap: 15px;
   min-height: 160px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-card.selected {
+  border: 2px solid var(--loreal-gold);
+  background: #fffbe6;
+  position: relative;
+}
+
+.product-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--loreal-gold);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
 }
 
 .product-card img {
@@ -232,6 +269,59 @@ body {
   gap: 10px;
 }
 
+.selected-product-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background: white;
+  border: 1px solid var(--loreal-gold);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.selected-product-item:hover {
+  background: #fffbe6;
+}
+
+.selected-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.selected-product-info {
+  flex: 1;
+}
+
+.selected-product-info h3 {
+  font-size: 16px;
+  color: var(--loreal-red);
+  margin-bottom: 4px;
+}
+
+.selected-product-info p {
+  font-size: 14px;
+  color: #666;
+}
+
+.remove-product {
+  background: none;
+  border: none;
+  color: var(--loreal-red);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.remove-product:hover {
+  background: var(--loreal-red);
+  color: white;
+}
+
 .generate-btn {
   width: 100%;
   margin-top: 20px;
@@ -252,4 +342,260 @@ body {
 
 .generate-btn i {
   margin-right: 8px;
+}
+
+/* Product Info Button */
+.info-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--loreal-gold);
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 2;
+  padding: 5px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.info-button:hover {
+  color: var(--loreal-red);
+  transform: scale(1.1);
+}
+
+.selected .info-button {
+  color: white;
+}
+
+/* Product Modal */
+.product-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.product-modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  max-width: 800px;
+  width: 90%;
+  position: relative;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--loreal-red);
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-close:hover {
+  background: var(--loreal-gold);
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.modal-product {
+  display: flex;
+  gap: 30px;
+}
+
+.modal-product-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--loreal-gold);
+}
+
+.modal-product-info {
+  flex: 1;
+}
+
+.modal-product-info h2 {
+  color: var(--loreal-red);
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.product-category {
+  color: var(--loreal-gold);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.product-description {
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.product-benefits {
+  margin-bottom: 20px;
+}
+
+.product-benefits h3,
+.product-ingredients h3 {
+  color: var(--loreal-red);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.product-benefits ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product-benefits li {
+  padding-left: 25px;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.product-benefits li::before {
+  content: '✓';
+  color: var(--loreal-gold);
+  position: absolute;
+  left: 0;
+}
+
+.product-ingredients {
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+/* Chat Message Styles */
+.chat-message {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chat-message.loading {
+  color: var(--loreal-gold);
+  text-align: center;
+  font-style: italic;
+}
+
+.chat-message.error {
+  background: #fff2f2;
+  color: var(--loreal-red);
+  text-align: center;
+}
+
+.chat-message.ai {
+  background: #f8f9fa;
+  border-left: 4px solid var(--loreal-gold);
+}
+
+/* Routine Content Styles */
+.routine-content {
+  line-height: 1.6;
+}
+
+.routine-content h2 {
+  color: var(--loreal-red);
+  font-size: 1.4rem;
+  margin: 20px 0 10px;
+}
+
+.routine-content h3 {
+  color: var(--loreal-gold);
+  font-size: 1.2rem;
+  margin: 15px 0 10px;
+}
+
+.routine-content p {
+  margin-bottom: 10px;
+}
+
+.routine-content ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.routine-content li {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.routine-content li::before {
+  content: '•';
+  color: var(--loreal-gold);
+  position: absolute;
+  left: -15px;
+}
+
+.routine-step {
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin: 8px 0;
+  border-left: 3px solid var(--loreal-gold);
+}
+
+/* Loading Animation */
+.fa-spin {
+  animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Modal */
+@media (max-width: 600px) {
+  .modal-product {
+    flex-direction: column;
+  }
+  
+  .modal-product-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+  }
 }
